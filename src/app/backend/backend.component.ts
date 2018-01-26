@@ -1,39 +1,32 @@
 import {Component, OnInit} from '@angular/core';
 import {LoggerService} from '../utils/logger.service';
 import {BackendService} from './backend.service';
+import {Observable} from 'rxjs/Observable';
 import {Menu} from '../model/menu';
-import {Banner} from '../model/banner';
 
 
 @Component({
-    templateUrl: 'backend/backend.component.html'
+    templateUrl: 'backend.component.html'
 })
 
 export class BackendComponent implements OnInit {
-    banners: Banner[];
+    banner$: Observable<Menu> | null = null;
     selectedMenu = 1;
     constructor(private logger: LoggerService, private backService: BackendService) {}
 
     ngOnInit(): void {
-        this.backService.getBanners().subscribe((result) => {
-            this.banners = result as Banner[];
-        }
-        );
-    }
-
-    onSelect(menuId: number): void {
-        this.logger.debug('click menu ' + menuId);
+        this.banner$ = this.backService.getMenu('' + this.selectedMenu);
     }
 
     deleteImage(order: number): void {
-        this.backService.deleteRootBanner(order, this.selectedMenu).toPromise().then((result) => {
+/*        this.backService.deleteRootBanner(order, this.selectedMenu).toPromise().then((result) => {
                 if (result) {
                     alert('deleteImage1 ' + result);
                     const index = this.banners.findIndex(b => b.order === order);
                     this.banners.splice(index, 1);
                 }
             }
-        );
+        );*/
     }
 
     editImage(order: number): void {

@@ -1,0 +1,43 @@
+<h3>添加分类</h3>
+<form [formGroup]="categoryForm" novalidate>
+  <div class="form-group radio" *ngIf="!editing">
+    <h4>类别类型:</h4>
+    <label class="center-block"><input type="radio" formControlName="type" value="d">一级分类</label>
+    <label class="center-block"><input type="radio" formControlName="type" value="c">二级分类</label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">名字:
+      <input class="form-control" formControlName="name">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">描述:
+      <input class="form-control" formControlName="desc">
+    </label>
+  </div>
+
+  <div *ngIf="categoryForm.get('type').value=='c'">
+    <div class="form-group">
+      <label class="center-block">所属一级分类:
+        <select class="form-control" formControlName="department">
+          <option *ngFor="let d of productService.departments" [value]="d.id">{{d.name}}</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label class="center-block">banner图:
+        <img src="{{'../images/' + banner}}"/>
+      </label>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 1em">
+    <button type="submit" (click)="onSubmit()"
+            class="btn btn-success">Save</button>
+  </div>
+</form>
+
+<p>categoryForm value: {{ categoryForm.value | json}}</p>

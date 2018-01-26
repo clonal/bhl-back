@@ -1,49 +1,42 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Input} from '@angular/core';
 import {Menu} from '../model/menu';
 import {LoggerService} from '../utils/logger.service';
-import {Banner} from '../model/banner';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {Article} from '../model/article';
 import {Product} from '../model/product';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class BackendService {
-
-    menus: Menu[];
-    constructor(private logger: LoggerService, private client: HttpClient) {}
+    menus: Menu[]|null = null;
+    constructor(private logger: LoggerService, private client: HttpClient) {
+      if (this.menus === null) {
+        this.initMenus();
+      }
+    }
 
     initMenus(): void {
-        this.getMenus().subscribe(result => {
-                this.menus = result; this.logger.debug('menus: ' + this.menus.length);
-            }
-        );
+      this.client.get('/api/menu/listMenus')
+        .subscribe((response) => {
+          this.menus = response as Menu[];
+        });
     }
 
-    getBanners(): Observable<Banner[]> {
-        return this.client.get('/api/menu/showMenu/1')
+/*    getBanners(): Observable<Banner[]> {
+        return this.client.get('/api/menu/showMenu/1', {})
             .map( (response) => {
-              if (response['menu']) {
-                return (response['menu'] as Menu).banner;
-              }
-                    const banner = response['banner'] as Map<string, string>;
-                    const banners = [];
-                    for (const key in banner) {
-                        if (key) {
-                            banners.push(new Banner(Number(key), banner[key]));
-                        }
-                    }
-                    return banners;
+                  return [];
                 }
             );
-    }
+    }*/
 
-    getMenus(): Observable<Menu[]> {
-        return this.client.get('/api/menu/listMenus')
-            .map((response) => {
-                return response as Menu[]
-            });
-    }
+/*    getMenu(id: string): Observable<Menu> {
+      return this.client.get('/api/menu/showMenu/' + id, {})
+        .map(result => {
+          return result as Menu;
+        });
+    }*/
 
     getChildMenus(root: number): Observable<Menu[]> {
         return this.client.get('/api/menu/findChildrenOfMenu/' + root)
@@ -105,8 +98,8 @@ export class BackendService {
         if (menu.id === id) {
             return 0;
         } else {
-            let children = menu.children;
-            let index = children.findIndex(b => b.id === id);
+            const children = menu.children;
+            const index = children.findIndex(b => b.id === id);
             if (index >= 0) {
                 children.splice(index, 1);
                 return index;
@@ -130,7 +123,7 @@ export class BackendService {
             menu.children.push(child);
             return;
         } else {
-            let children = menu.children;
+            const children = menu.children;
             children.forEach(c => {
                 this.addChild(c, parent, child);
             });
@@ -154,7 +147,7 @@ export class BackendService {
     }
 
     getMenu(id: string | any): Observable<Menu> {
-        let str = id == null ? '' : '?menu=' + id;
+        const str = id == null ? '' : '?menu=' + id;
         return this.client.get('/api/menu/showMenu' + str).map((result) => {
             if (result) {
                 if (result['error'] || result['info']) {

@@ -1,0 +1,36 @@
+<h3>添加文章</h3>
+<form [formGroup]="articleForm" novalidate>
+  <div class="form-group">
+    <label class="center-block">所属栏目:
+      <select class="form-control" formControlName="column">
+        <option *ngFor="let col of contentService.leafColumns()" [value]="col.id">{{col.desc}}</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">标题:
+      <input class="form-control" formControlName="title">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">描述:
+      <input class="form-control" formControlName="desc">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">内容:
+      <textarea class="form-control" formControlName="content"></textarea>
+    </label>
+  </div>
+
+  <div style="margin-bottom: 1em">
+    <button type="submit" (click)="onSubmit()"
+            class="btn btn-success">保存</button>
+  </div>
+</form>
+
+
+

@@ -1,0 +1,111 @@
+<h3>添加产品</h3>
+<form [formGroup]="productForm" novalidate>
+  <div class="form-group">
+    <label class="center-block">名字:
+      <input class="form-control" formControlName="name">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">分类:
+      <select class="form-control" formControlName="category">
+        <option *ngFor="let cate of productService.leafCategories()" [value]="cate.id">{{cate.name}}</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">sku:
+      <input class="form-control" formControlName="sku">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">描述:
+      <textarea class="form-control" formControlName="content"></textarea>
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">asin:
+      <input class="form-control" formControlName="asin">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">原价:
+      <input class="form-control" formControlName="price">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">售价:
+      <input class="form-control" formControlName="sellPrice">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">库存:
+      <input class="form-control" formControlName="sellPrice">
+    </label>
+  </div>
+
+  <div class="checkbox">
+    <label class="center-block">
+      <input type="checkbox" formControlName="show">展示商品
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">商品链接:
+      <input class="form-control" formControlName="link">
+    </label>
+  </div>
+
+  <div formArrayName="attributes" class="well well-lg">
+    <div *ngFor="let attribute of attributes.controls; let i=index" [formGroupName]="i" >
+      <!-- The repeated address template -->
+      <h4>属性 #{{i + 1}}</h4>
+      <div style="margin-left: 1em;">
+        <div class="form-group">
+          <label class="center- block">属性名:
+            <input class="form-control" formControlName="key">
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="center-block">属性值:
+            <input class="form-control" formControlName="value">
+          </label>
+        </div>
+      </div>
+      <br>
+      <!-- End of the repeated address template -->
+    </div>
+    <button (click)="addAttribute()" type="button">添加属性</button>
+  </div>
+
+  <div>
+    <label>产品展示图:
+      <div formGroupName="images">
+        <div *ngFor="let spot of imageNames; index as i">
+          <input #imageUrl type="hidden" formControlName="{{'image' + i}}"/>
+          <img src="{{'../' + imageUrl.value}}" width="200" height="50"/>
+          <button (click)="uploadImage(upbt, i)" >上传图片{{i+1}}</button>
+          <button  (click)="removeImage(i)">移除图片{{i+1}}</button>
+          <input #upbt type="file" ng2FileSelect [uploader]="uploader" [style.display]="'none'"
+                 (change)="onChangeSelectFile($event, i)" (onComplete)="aabb()"/>
+        </div>
+      </div>
+    </label>
+
+  </div>
+
+  <div style="margin-bottom: 1em">
+    <button type="submit" (click)="onSubmit()"
+            class="btn btn-success">Save</button> &nbsp;
+    <button type="reset" (click)="revert()"
+            class="btn btn-danger">Revert</button>
+  </div>
+</form>
+
+<p>productForm value: {{ productForm.value | json}}</p>

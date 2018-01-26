@@ -1,0 +1,15 @@
+<nav>
+  <ul>
+    <li *ngFor="let menu of menus">
+      <div *ngIf="menu.name !== '' || menu.id === 1; else ablock">
+        <a [routerLink]="'back/' + menu.name" routerLinkActive="active">{{menu.desc}}</a>
+      </div>
+      <ng-template #ablock>
+        <label>{{menu.desc}}</label>
+      </ng-template>
+      <app-sidenav *ngIf="menu.children && menu.children.length"
+                [menus]="menu.children"></app-sidenav>
+    </li>
+  </ul>
+</nav>
+

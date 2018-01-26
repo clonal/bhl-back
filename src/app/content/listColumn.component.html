@@ -1,0 +1,26 @@
+ <h3>栏目列表</h3>
+<button (click)="addColumn(0, 0)">添加栏目</button>
+<ul>
+  <li>
+    <ul *ngFor="let parent of contentService.columns">
+      <li>
+        {{parent.desc}}
+        <button (click)="editColumn(parent.id)">编辑</button>
+        <button (click)="deleteColumn(parent.id)">删除</button>
+        <button (click)="addColumn(1, parent.id)">添加子栏目</button>
+        <ul *ngFor="let child of parent.children">
+          <li>
+            {{child.desc}}
+            <button (click)="editColumn(child.id)">编辑</button>
+            <button (click)="deleteColumn(child.id)">删除</button>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <button (click)="addColumn(0, 0)">添加父栏目</button>
+  </li>
+</ul>
+
+

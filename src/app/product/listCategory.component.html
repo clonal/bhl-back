@@ -1,0 +1,25 @@
+<h3>分类列表</h3>
+
+<button (click)="addDepartment()">添加分类</button>
+<ul>
+  <li>
+    <ul *ngFor="let parent of productService.departments">
+      <li>
+        {{parent.name}}
+        <button (click)="editDepartment(parent.id)">编辑</button>
+        <button (click)="deleteDepartment(parent.id)">删除</button>
+        <button (click)="addCategory(parent.id)">添加子分类</button>
+        <ul *ngFor="let child of parent.children">
+          <li>
+            {{child.name}}
+            <button (click)="editCategory(child.id)">编辑</button>
+            <button (click)="deleteCategory(child.id)">删除</button>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <button (click)="addDepartment()">添加父分类</button>
+  </li>
+</ul>

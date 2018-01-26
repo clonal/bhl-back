@@ -1,0 +1,14 @@
+<h3>文章列表</h3>
+<button (click)="addArticle(0)">添加文章</button>
+<div class="main">
+  <ul *ngFor="let article of articles">
+    <li><a [routerLink]="['/back/article', article.column]">[{{article.column}}]</a>
+      <span>{{article.date}}</span>
+      <a [routerLink]="['/back/article', article.id]">{{article.title}}</a>
+      <span><button (click)="deleteArticle(article.id)" >删除</button>
+                &nbsp;&nbsp;<button [routerLink]="['/back/article', article.id]" >编辑</button>
+                &nbsp;&nbsp;<button >排序</button>
+            </span>
+    </li>
+  </ul>
+</div>

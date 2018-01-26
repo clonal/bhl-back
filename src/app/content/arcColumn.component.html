@@ -1,0 +1,41 @@
+<h3>添加栏目</h3>
+<form [formGroup]="columnForm" novalidate>
+  <div class="form-group radio">
+    <h4>栏目类型:</h4>
+    <label class="center-block"><input type="radio" formControlName="type" value="0" #tp>父栏目</label>
+    <label class="center-block"><input type="radio" formControlName="type" value="1">子栏目</label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">名字:
+      <input class="form-control" formControlName="name">
+    </label>
+  </div>
+
+  <div class="form-group" [style.display]="columnForm.get('type').value === '0' ? 'None' : ''">
+    <label class="center-block">所属父栏目:
+      <select class="form-control" formControlName="parent">
+        <option *ngFor="let col of contentService.columns" [value]="col.id">{{col.desc}}</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">描述:
+      <input class="form-control" formControlName="desc">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="center-block">内容:
+      <textarea class="form-control" formControlName="content"></textarea>
+    </label>
+  </div>
+
+  <div style="margin-bottom: 1em">
+    <button type="submit" (click)="onSubmit()"
+            class="btn btn-success">Save</button>
+  </div>
+</form>
+
+<p>columnForm value: {{ columnForm.value | json}}</p>
