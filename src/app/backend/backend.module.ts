@@ -6,6 +6,7 @@ import {BackendRoutingModule} from './backend-routing.module';
 import {BackendComponent} from './backend.component';
 import {ContentModule} from '../content/content.module';
 import {ProductModule} from '../product/product.module';
+import {InfoModule} from '../info/info.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import {ProductModule} from '../product/product.module';
     FileUploadModule,
     ContentModule,
     ProductModule,
+    InfoModule,
     BackendRoutingModule
   ],
   declarations: [

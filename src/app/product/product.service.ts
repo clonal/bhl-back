@@ -106,8 +106,9 @@ export class ProductService implements OnInit {
       });
   }
 
-  deleteProduct(id: number) {
-    this.client.post('/api/product/removeProduct/' + id, {})
+    deleteProduct(id: number, isParent: boolean) {
+    const str = isParent ? '?p=true' : '';
+    this.client.post('/api/product/removeProduct/' + id + str, {})
       .subscribe(result => {
         alert(result['info']);
         this.initProducts();

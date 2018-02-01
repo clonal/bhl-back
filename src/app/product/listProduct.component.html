@@ -6,13 +6,13 @@
       <li>
         {{item.name}}
         <button (click)="editProduct(item.id)">编辑</button>
-        <button (click)="deleteProduct(item.id)">删除</button>
+        <button (click)="deleteProduct(item.id, true)">删除</button>
         <button (click)="addProduct(item.id)">添加子产品</button>
         <ul *ngFor="let product of item.children">
           <li>
             {{product.name}}
             <button (click)="editProduct(product.id)">编辑</button>
-            <button (click)="deleteProduct(product.id)">删除</button>
+            <button (click)="deleteProduct(product.id, false)">删除</button>
           </li>
         </ul>
       </li>

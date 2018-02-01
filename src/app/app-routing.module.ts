@@ -27,7 +27,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'back',
-    loadChildren: './backend/backend.module#BackendModule',
+    loadChildren: 'app/backend/backend.module#BackendModule',
     canActivate: [SecuredGuard]
   },
   {

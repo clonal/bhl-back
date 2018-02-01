@@ -1,9 +1,9 @@
 import {RouterModule, Routes} from '@angular/router';
 import {ListColumnComponent} from './listColumn.component';
-import {ListArticleComponent} from "./listArticle.component";
-import {ArcColumnComponent} from "./arcColumn.component";
-import {NgModule} from "@angular/core";
-import {ArcArticleComponent} from "./arcArticle.component";
+import {ListArticleComponent} from './listArticle.component';
+import {ArcColumnComponent} from './arcColumn.component';
+import {NgModule} from '@angular/core';
+import {ArcArticleComponent} from './arcArticle.component';
 
 const contentRoutes: Routes = [
   {

@@ -11,8 +11,8 @@ export class ListProductComponent {
                private router: Router,
                private route: ActivatedRoute) {}
 
-  deleteProduct(id: number) {
-    this.productService.deleteProduct(id);
+  deleteProduct(id: number, isParent: boolean) {
+    this.productService.deleteProduct(id, isParent);
   }
 
   addProduct(id: number) {

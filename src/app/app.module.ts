@@ -56,7 +56,7 @@ export function jwtOptionsFactory(): any {
       },
       config: { skipWhenExpired: true }
     }),
-    BackendModule,
+    // BackendModule,
     AppRoutingModule,
   ],
   providers: [

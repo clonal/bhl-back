@@ -68,6 +68,13 @@ export class ArcProductComponent implements OnInit, OnChanges {
         this.setAttributes(p.attributes);
       }
     });
+    this.route.queryParamMap.subscribe(params => {
+        if (params.has('item')) {
+          this.productForm.patchValue({
+            parent: +params.get('item')
+          });
+        }
+      });
   }
 
   createForm() {
@@ -80,6 +87,7 @@ export class ArcProductComponent implements OnInit, OnChanges {
       price: 0,
       sellPrice: 0,
       stock: 0,
+      parent: 0,
       show: true,
       attributes: this.fb.array([]),
       images: this.fb.group({
@@ -99,7 +107,7 @@ export class ArcProductComponent implements OnInit, OnChanges {
       this.productForm.get('name').value,
       this.productForm.get('sku').value,
       +this.productForm.get('category').value,
-      0,
+      +this.productForm.get('parent').value,
       this.attributes.getRawValue(),
       this.productForm.get('content').value,
       +this.productForm.get('price').value,

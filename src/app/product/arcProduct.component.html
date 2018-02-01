@@ -62,19 +62,19 @@
     </label>
   </div>
 
-  <div formArrayName="attributes" class="well well-lg">
+  <div formArrayName="attributes">
     <div *ngFor="let attribute of attributes.controls; let i=index" [formGroupName]="i" >
       <!-- The repeated address template -->
       <h4>属性 #{{i + 1}}</h4>
       <div style="margin-left: 1em;">
-        <div class="form-group">
-          <label class="center- block">属性名:
-            <input class="form-control" formControlName="key">
+        <div>
+          <label>属性名:
+            <input formControlName="key">
           </label>
         </div>
-        <div class="form-group">
-          <label class="center-block">属性值:
-            <input class="form-control" formControlName="value">
+        <div>
+          <label>属性值:
+            <input formControlName="value">
           </label>
         </div>
       </div>
@@ -85,18 +85,17 @@
   </div>
 
   <div>
-    <label>产品展示图:
+    <label>产品展示图:    </label>
       <div formGroupName="images">
         <div *ngFor="let spot of imageNames; index as i">
           <input #imageUrl type="hidden" formControlName="{{'image' + i}}"/>
           <img src="{{'../' + imageUrl.value}}" width="200" height="50"/>
-          <button (click)="uploadImage(upbt, i)" >上传图片{{i+1}}</button>
-          <button  (click)="removeImage(i)">移除图片{{i+1}}</button>
+          <button (click)="uploadImage(upbt, i)" >上传图片{{i + 1}}</button>
+          <button  (click)="removeImage(i)">移除图片{{i + 1}}</button>
           <input #upbt type="file" ng2FileSelect [uploader]="uploader" [style.display]="'none'"
-                 (change)="onChangeSelectFile($event, i)" (onComplete)="aabb()"/>
+                 (change)="onChangeSelectFile($event, i)" />
         </div>
       </div>
-    </label>
 
   </div>
 
